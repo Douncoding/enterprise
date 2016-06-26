@@ -4,15 +4,22 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.douncoding.enterprise.AndroidApplication;
+import com.douncoding.enterprise.R;
 import com.douncoding.enterprise.internal.di.components.ApplicationComponent;
 import com.douncoding.enterprise.internal.di.modules.ActivityModule;
 
 /**
  *
  */
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,10 @@ public class BaseActivity extends Activity {
         fragmentTransaction.commit();
     }
 
+    protected ActionBar setActionbar(@IdRes int resId) {
+        setSupportActionBar((Toolbar)findViewById(resId));
+        return getSupportActionBar();
+    }
 
     protected ApplicationComponent getApplicationComponent() {
         return ((AndroidApplication)getApplication()).getApplicationComponent();
