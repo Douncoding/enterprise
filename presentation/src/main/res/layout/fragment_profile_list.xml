@@ -3,11 +3,17 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- 실제 컨텐츠 -->
     <com.douncoding.enterprise.view.component.SnappingHorizontalListView
         xmlns:douncoding="http://schemas.android.com/apk/res/com.douncoding.enterprise"
         android:id="@+id/profile_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        douncoding:content_layout="@layout/content_preview_profile"/>
+        android:layout_height="0dp"
+        android:layout_weight="0.9"
+        douncoding:content_layout="@layout/content_profile_preview"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"/>
 </LinearLayout>

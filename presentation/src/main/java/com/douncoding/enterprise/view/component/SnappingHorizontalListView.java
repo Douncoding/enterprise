@@ -24,6 +24,9 @@ import com.douncoding.enterprise.R;
  *
  */
 public class SnappingHorizontalListView extends LinearLayout {
+    public static final String TAG = SnappingHorizontalListView.class.getSimpleName();
+    public static final boolean LOGGING = true;
+
     private Context mContext;
 
     private ViewPager mViewPager;
@@ -59,7 +62,17 @@ public class SnappingHorizontalListView extends LinearLayout {
     // --------------------------------------------------------------------------
     // API START
     // --------------------------------------------------------------------------
+    /**
+     *
+     */
+    private OnPageListener onPageListener;
+    public interface OnPageListener {
+        void onClick(int position, View view);
+    }
 
+    public void setOnClickListener(OnPageListener listener) {
+        this.onPageListener = listener;
+    }
 
     public void clear() {
 
@@ -81,14 +94,13 @@ public class SnappingHorizontalListView extends LinearLayout {
         }
 
         setupDotsView(3);
-
         setupPagerView(3);
     }
 
     private void setupPagerView(int count) {
         mViewPager = new ViewPager(mContext);
         mViewPager.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         mPageAdapter = new BasePageAdapter(count);
         mViewPager.setAdapter(mPageAdapter);
@@ -169,6 +181,7 @@ public class SnappingHorizontalListView extends LinearLayout {
             View view = LayoutInflater.from(container.getContext())
                     .inflate(contentLayoutId, container, false);
 
+            view.setOnClickListener(new OnPageClickListener(position));
             container.addView(view);
             return view;
         }
@@ -187,6 +200,25 @@ public class SnappingHorizontalListView extends LinearLayout {
         public void destroyItem(ViewGroup container, int position, Object object) {
             super.destroyItem(container, position, object);
             container.removeView((View)object);
+        }
+    }
+
+    class OnPageClickListener implements View.OnClickListener {
+        int position;
+
+        public OnPageClickListener(int position) {
+            this.position = position;
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (onPageListener != null) {
+                onPageListener.onClick(this.position, v);
+            } else {
+                if (LOGGING) {
+                    Log.w(TAG, "페이지 클릭 이벤트 발생: 설정된 리스너가 없음:" + position);
+                }
+            }
         }
     }
 

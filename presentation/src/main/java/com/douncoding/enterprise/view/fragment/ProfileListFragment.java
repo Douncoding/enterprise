@@ -9,14 +9,27 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.douncoding.enterprise.R;
+import com.douncoding.enterprise.view.component.SnappingHorizontalListView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Profile 정보를 나타내기 위한 Fragment
  *
  */
-public class ProfileListFragment extends Fragment {
+public class ProfileListFragment extends BaseFragment {
+
+    /**
+     * Interface for listening user list events.
+     */
+    private ProfileListListener profileListListener;
+    public interface ProfileListListener {
+        void onProfileClicked();
+    }
+
+    @BindView(R.id.profile_list)
+    SnappingHorizontalListView mSnappingHorizontalListView;
 
     public ProfileListFragment() {
         setRetainInstance(true);
@@ -25,6 +38,9 @@ public class ProfileListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        if (context instanceof ProfileListListener) {
+            this.profileListListener = (ProfileListListener) context;
+        }
     }
 
     @Override
@@ -37,6 +53,8 @@ public class ProfileListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_profile_list, container, false);
         ButterKnife.bind(this, rootView);
+
+        setupListView();
         return rootView;
     }
 
@@ -68,5 +86,16 @@ public class ProfileListFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        profileListListener = null;
+    }
+
+    private void setupListView() {
+        mSnappingHorizontalListView.setOnClickListener(new SnappingHorizontalListView.OnPageListener() {
+            @Override
+            public void onClick(int position, View view) {
+                if (profileListListener != null)
+                    profileListListener.onProfileClicked();
+            }
+        });
     }
 }

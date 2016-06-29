@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">Enterprise</string>
-
-
     <string name="toolbar_title_profile">PROFILE</string>
+
+
+    <!-- 개발자 프로필 화면 -->
+    <string name="profile_content_default_username">L. Evans</string>
+    <string name="profile_content_default_job">Android Developer</string>
+    <string name="profile_content_default_company">Freelancer</string>
+    <string name="profile_content_default_status">Active</string>
+    <string name="profile_content_action_subscribe">Subscribe</string>
+    <string name="profile_content_default_subscriber_label">SUBSCRIBERS</string>
+    <string name="profile_content_default_project_label">PROJECTS</string>
+    <string name="profile_content_default_comment_label">COMMENTS</string>
+    <string name="profile_content_default_item_skill">tag #1</string>
 </resources>

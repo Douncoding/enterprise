@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="timelineview" >
+        <attr name="contentLayout" format="reference"/>
+        <attr name="event_width" format="dimension"/>
+    </declare-styleable>
+</resources>

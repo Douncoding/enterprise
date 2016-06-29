@@ -1,4 +1,4 @@
-package com.douncoding.enterprise.view.component;
+package com.douncoding.enterprise.view.component.test;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
